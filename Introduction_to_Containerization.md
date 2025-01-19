@@ -41,6 +41,34 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 ```
 
+```
+### contents of app.py:
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, World! Welcome to the containerized Flask app!"
+
+@app.route('/about')
+def about():
+    return "This is a sample Flask application running inside a Docker container."
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+#Explanation:
+#Import Flask: The Flask library is used to create a lightweight web server.
+#Define Routes:
+#/: A route that returns a "Hello, World!" message.
+#/about: A route that provides an additional response.
+#Run the App:
+#The host='0.0.0.0' ensures the app is accessible from outside the container.
+#The app listens on port 5000, which matches the port exposed in the Dockerfile.
+
+```
+
 ### Steps:
 1. Build the container image:
    ```bash
@@ -61,5 +89,3 @@ This creates a containerized version of your Flask app, which can be run on any 
 3. **Scalability**: Using tools like Kubernetes, you can deploy multiple instances of the app easily.
 
 ---
-
-Let me know if you'd like more details on Docker, Kubernetes, or specific use cases!
